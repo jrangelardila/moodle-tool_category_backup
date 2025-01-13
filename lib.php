@@ -97,9 +97,9 @@ function tool_category_backup_get_courses($categories)
         get_string('fullname'),
         get_string('category'),
         get_string('visible', 'tool_category_backup'),
-        get_string('size', 'tool_category_backup'),
         get_string('name_backup', 'tool_category_backup'),
-        get_string('date_backup', 'tool_category_backup')
+        get_string('date_backup', 'tool_category_backup'),
+        get_string('size', 'tool_category_backup'),
     ];
     $table->class = "w-100";
 
