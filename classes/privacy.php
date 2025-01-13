@@ -21,8 +21,18 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$plugin->component = 'tool_category_backup';
-$plugin->release = '1.0 jrangelardila';
-$plugin->version = 2024062605;
-$plugin->requires = 2023042400;
-$plugin->maturity = MATURITY_STABLE;
+
+namespace classes;
+
+use core_privacy\local\metadata\null_provider;
+
+class privacy
+{
+    /**
+     * @inheritDoc
+     */
+    public static function get_reason(): string
+    {
+        return 'privacy:metadata';
+    }
+}

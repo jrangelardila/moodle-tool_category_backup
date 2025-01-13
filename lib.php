@@ -42,7 +42,7 @@ function tool_category_backup_create_backup($courseid)
     //$bc->execute_plan();
 
     //$asynctask = new \core\task\asynchronous_backup_task();
-    $asynctask = new  tool_category_backup\asynchronous_category_backup_class();
+    $asynctask = new  \tool_category_backup\local\asynchronous_category_backup();
     $asynctask->set_blocking(false);
     $asynctask->set_custom_data(array('backupid' => $bc->get_backupid()));
     $asynctask->set_userid($USER->id);
