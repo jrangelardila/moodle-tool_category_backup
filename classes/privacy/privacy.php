@@ -21,11 +21,6 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace classes;
-
-use core_privacy\local\metadata\null_provider;
-
 class privacy
 {
     /**
