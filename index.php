@@ -21,6 +21,7 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 use tool_category_backup\form\form_category_backup;
 
 require_once '../../../config.php';
@@ -66,6 +67,7 @@ if (optional_param("execute", '', PARAM_BOOL)) {
     document.getElementById('table_data').style.display='none';
 </script> ";
     echo html_writer::tag("a", get_string('back', 'tool_category_backup'), array("class" => "btn btn-primary m-3", "href" => "index.php"));
+    $PAGE->requires->strings_for_js(["js_m1", "js_m2", "js_m3", "js_m4"], "tool_category_backup");
     $PAGE->requires->js_call_amd('tool_category_backup/download', 'init_process');
 
 } else {
