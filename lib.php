@@ -104,7 +104,6 @@ function tool_category_backup_get_courses($categories)
         get_string('date_backup', 'tool_category_backup'),
         get_string('size', 'tool_category_backup'),
     ];
-    $table->class = "w-100";
 
     $count = 1;
     $courses_validate = [];

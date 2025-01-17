@@ -21,6 +21,7 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace tool_category_backup\form;
 
 use moodle_url;
@@ -51,8 +52,15 @@ class form_category_backup extends \moodleform
             $mform->setDefault('categorys', $SESSION->user_filtering['categorys']);
         }
 
-        $url = new moodle_url('/admin/settings.php?section=backupgeneralsettings');
-        $mform->addElement('html', get_string('url_config', 'tool_category_backup', $url));
+        $url = new moodle_url('/admin/settings.php', ['section' => 'backupgeneralsettings']);
+        $formatted_url = $url->out();
+
+        $string = get_string('url_config', 'tool_category_backup');
+
+        $string = str_replace('{a}', $formatted_url, $string);
+        $mform->addElement('html', $string);
+
+
 
         $this->add_action_buttons();
 
