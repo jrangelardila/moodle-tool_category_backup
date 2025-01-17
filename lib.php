@@ -22,7 +22,6 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Crear la tarea para las copias de seguridad
@@ -91,6 +90,10 @@ function tool_category_backup_get_courses($categories)
 
     $table = new html_table();
     $table->id = 'table_data';
+    $table->attributes = [
+        'style' => 'position: absolute; background-color:white;'
+    ];
+
     $table->head = [
         get_string('number', 'tool_category_backup'),
         get_string('shortname'),
