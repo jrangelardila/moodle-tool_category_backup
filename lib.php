@@ -90,9 +90,7 @@ function tool_category_backup_get_courses($categories)
 
     $table = new html_table();
     $table->id = 'table_data';
-    $table->attributes = [
-        'style' => 'position: absolute; background-color:white;'
-    ];
+
 
     $table->head = [
         get_string('number', 'tool_category_backup'),
