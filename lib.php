@@ -46,7 +46,7 @@ function tool_category_backup_create_backup($courseid)
 }
 
 /**
- * Retornar tabla con la información
+ * Get table with the information
  *
  * @param $categories
  * @return array|void
@@ -152,7 +152,7 @@ function tool_category_backup_get_courses($categories)
 }
 
 /**
- * Retornar el archivo de copia de seguridad del curso
+ * Get the file, It is a course backup file
  *
  * @param $course
  * @return bool|stored_file

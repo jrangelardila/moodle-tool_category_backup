@@ -92,7 +92,7 @@ class asynchronous_category_backup extends asynchronous_backup_task
             mtrace('Backup completed in: ' . $duration . ' seconds');
 
             $backuprecord = $DB->get_record('backup_controllers', array('backupid' => $backupid));
-            //Renombrar el archivo
+            //Rename file
             $this->tool_category_backup_update_file($backuprecord->itemid);
         } catch (Exception $e) {
             mtrace($e->getMessage());
@@ -102,7 +102,7 @@ class asynchronous_category_backup extends asynchronous_backup_task
 
 
     /**
-     * Actualizar y borrar el archivo anterior si es necesario
+     * Update and delete the before file, if it is exist
      *
      * @param $courseid
      * @return void
@@ -144,7 +144,7 @@ class asynchronous_category_backup extends asynchronous_backup_task
         $file_get = $fs->get_file($fileinfo->contextid, $fileinfo->component, $fileinfo->filearea,
             $fileinfo->itemid, $fileinfo->filepath, $fileinfo->filename);
 
-        // Si el archivo existe eliminarlo
+        //If file exist, deleted!
         //mtrace($file_get->get_timecreated());
         if ($file_get) {
             mtrace('Deleting the previous backup....');
@@ -154,9 +154,9 @@ class asynchronous_category_backup extends asynchronous_backup_task
             mtrace('No previous backup exists....');
         }
 
-        //Renombrar el archivo
+        //Rename file
 
-        //El filename, debe ser el referenciado, que es al momento de crear las copias en backup/moodle2/backup_root_task.class.php
+        //The filename has to be to referencie, In time of run the copy from  backup/moodle2/backup_root_task.class.php
         $file = $DB->get_record_sql("SELECT * FROM  {files}  WHERE filename='backup.mbz'
     AND filearea='course' AND 	contextid=$context->id AND filename!='.' AND  mimetype='application/vnd.moodle.backup';");
         $fs = get_file_storage();
