@@ -53,9 +53,11 @@ if (optional_param("execute", '', PARAM_BOOL)) {
     foreach ($SESSION->user_filtering['courses_backup'] as $course) {
         tool_category_backup_create_backup($course->id);
     }
-    echo get_string('generate_task_success', 'tool_category_backup');
-    echo html_writer::tag("a", get_string('back', 'tool_category_backup'),
-        array("class" => "btn btn-primary m-3", "href" => "index.php"));
+    $templatecontext = [
+        'back_url' => new moodle_url('/admin/tool/category_backup/index.php'),
+    ];
+    echo $OUTPUT->render_from_template('tool_category_backup/success_task', $templatecontext);
+
 
     $SESSION->user_filtering['courses_backup'] = null;
 } else if (optional_param("download", '', PARAM_BOOL)) {
@@ -66,15 +68,19 @@ if (optional_param("execute", '', PARAM_BOOL)) {
     echo "<script>let data_course=$json_data;
     document.getElementById('table_data').style.display='none';
 </script> ";
+
     echo html_writer::tag("a", get_string('back', 'tool_category_backup'), array("class" => "btn btn-primary m-3", "href" => "index.php"));
     $PAGE->requires->strings_for_js(["js_m1", "js_m2", "js_m3", "js_m4"], "tool_category_backup");
     $PAGE->requires->js_call_amd('tool_category_backup/download', 'init_process');
 
 } else {
     if ($courses) {
-        echo html_writer::tag("a", get_string('generate_task', 'tool_category_backup'), array("class" => "btn btn-primary m-3", "href" => "index.php?execute=true"));
-        echo html_writer::tag("a", get_string('download_backups', 'tool_category_backup'), array("class" => "btn btn-primary m-3", "href" => "index.php?download=true"));
-        echo html_writer::tag("a", get_string('back', 'tool_category_backup'), array("class" => "btn btn-primary m-3", "href" => "index.php"));
+        $templatecontext = [
+            'generate_url' => new moodle_url('/admin/tool/category_backup/index.php', ['execute' => 'true']),
+            'download_url' => new moodle_url('/admin/tool/category_backup/index.php', ['download' => 'true']),
+            'back_url' => new moodle_url('/admin/tool/category_backup/index.php'),
+        ];
+        echo $OUTPUT->render_from_template('tool_category_backup/buttons', $templatecontext);
     }
 }
 echo $OUTPUT->footer();
