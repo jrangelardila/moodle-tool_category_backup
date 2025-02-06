@@ -39,6 +39,7 @@ $PAGE->navbar->add(get_string('pluginname', 'tool_category_backup'), new moodle_
 
 
 require_login();
+
 $sitecontext = context_system::instance();
 if (!has_capability('tool/backup_category:execute', $sitecontext)) {
     print_error('nopermissions', 'tool_category_backup');
@@ -49,7 +50,7 @@ echo $OUTPUT->header();
 $form = new form_category_backup();
 $form->display();
 $courses = tool_category_backup_get_courses($form->get_data()->categorys);
-if (optional_param("execute", '', PARAM_BOOL)) {
+if (optional_param("execute", '', PARAM_BOOL) && data_submitted() && confirm_sesskey()) {
     foreach ($SESSION->user_filtering['courses_backup'] as $course) {
         tool_category_backup_create_backup($course->id);
     }
@@ -60,7 +61,7 @@ if (optional_param("execute", '', PARAM_BOOL)) {
 
 
     $SESSION->user_filtering['courses_backup'] = null;
-} else if (optional_param("download", '', PARAM_BOOL)) {
+} else if (optional_param("download", '', PARAM_BOOL) && data_submitted() && confirm_sesskey()) {
 
     echo "<div id='info_download'></div>";
 
