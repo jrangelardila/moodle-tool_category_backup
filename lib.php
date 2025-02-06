@@ -66,22 +66,14 @@ function tool_category_backup_get_courses($categories)
         }
     }
 
-    $SESSION->user_filtering['categorys'] = $categories;
+    list($sqlin, $params) = $DB->get_in_or_equal($categories, SQL_PARAMS_NAMED);
 
-    $sql = "SELECT id,shortname,category,fullname,summary,visible FROM {course} WHERE ";
-    $count = false;
-    foreach ($categories as $category) {
-        if (!$count) {
-            $sql = $sql . "  category='" . $category . "'";
-            $count = true;
-        } else {
-            $sql = $sql . " OR category='" . $category . "'";
-        }
-    }
+    $sql = "SELECT id, shortname, category, fullname, summary, visible 
+        FROM {course} 
+        WHERE category $sqlin 
+        ORDER BY fullname";
 
-    $sql = $sql . " ORDER BY fullname";
-
-    $courses = $DB->get_records_sql($sql);
+    $courses = $DB->get_records_sql($sql, $params);
 
     $table = new html_table();
     $table->id = 'table_data';
