@@ -21,6 +21,7 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace tool_category_backup\local;
 
 
@@ -116,13 +117,24 @@ class asynchronous_category_backup extends asynchronous_backup_task
 
 
         //Obtener el controller
-        $context = $DB->get_record_sql("SELECT * FROM {context} WHERE contextlevel='50' AND
-        instanceid= '$courseid';");
+        $sql = "SELECT * FROM {context} WHERE contextlevel = :contextlevel AND instanceid = :courseid";
+        $params = ['contextlevel' => CONTEXT_COURSE, 'courseid' => $courseid];
+        $context = $DB->get_record_sql($sql, $params);
 
         $filename_v = "$course->shortname.mbz";
-        $file_verified = $DB->get_record_sql(
-            "SELECT * FROM  {files}  WHERE  filearea='course' AND 	contextid=$context->id AND filename!='.' AND mimetype='application/vnd.moodle.backup'
-                  AND  filename='$filename_v';");
+        $sql = "SELECT * FROM {files} 
+        WHERE filearea = :filearea 
+        AND contextid = :contextid 
+        AND filename != '.' 
+        AND mimetype = :mimetype 
+        AND filename = :filename";
+        $params = [
+            'filearea' => 'course',
+            'contextid' => $context->id,
+            'mimetype' => 'application/vnd.moodle.backup',
+            'filename' => $filename_v
+        ];
+        $file_verified = $DB->get_record_sql($sql, $params);
 
         $fs = get_file_storage();
         // Prepare file record object
