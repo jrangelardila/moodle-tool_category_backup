@@ -32,17 +32,12 @@ require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 function tool_category_backup_create_backup($courseid)
 {
     global $USER, $DB;
-    //Realizar el backup
+
     $user_doing_the_backup = $USER->id; // Set this to the id of your admin account
-    /*$bc = new backup_controller(backup::TYPE_1COURSE, $courseid, backup::FORMAT_MOODLE,
-        backup::INTERACTIVE_NO, backup::MODE_COPY,  $user_doing_the_backup);*/
     $bc = new backup_controller(backup::TYPE_1COURSE, $courseid, backup::FORMAT_MOODLE,
         backup::INTERACTIVE_NO, backup::MODE_ASYNC, $user_doing_the_backup);
-    //$bc->execute_plan();
 
-    //$asynctask = new \core\task\asynchronous_backup_task();
     $asynctask = new  \tool_category_backup\local\asynchronous_category_backup();
-    $asynctask->set_blocking(false);
     $asynctask->set_custom_data(array('backupid' => $bc->get_backupid()));
     $asynctask->set_userid($USER->id);
     \core\task\manager::queue_adhoc_task($asynctask);
