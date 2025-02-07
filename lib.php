@@ -102,7 +102,8 @@ function tool_category_backup_get_courses($categories)
         $row->cells[] = $course->fullname;
         $url = new moodle_url('/course/index.php?categoryid=' . $course->category);
         $row->cells[] = "<a href='$url' target='_blank'>" . $DB->get_record('course_categories', ['id' => $course->category], 'name')->name . "</a>";
-        $row->cells[] = $course->visible == 1 ? 'Visible' : 'Oculto';
+        $row->cells[] = $course->visible == 1 ? get_string('show', 'tool_category_backup') :
+            get_string('hidden', 'tool_category_backup');
 
         $file = tool_category_backup_get_file_backup($course);
         if ($file) {

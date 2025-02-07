@@ -43,3 +43,5 @@ $string['js_m2'] = '</b>, backup llamado <b>';
 $string['js_m3'] = '. El curso: <b>';
 $string['js_m4'] = '</b> no cuenta con backup';
 $string['download_backups'] = 'Descargar copias de seguridad';
+$string['show'] = 'Visible';
+$string['hidden'] = 'Oculto';
