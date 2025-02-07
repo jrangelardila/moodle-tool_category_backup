@@ -157,8 +157,14 @@ class asynchronous_category_backup extends asynchronous_backup_task
         //Rename file
 
         //The filename has to be to referencie, In time of run the copy from  backup/moodle2/backup_root_task.class.php
-        $file = $DB->get_record_sql("SELECT * FROM  {files}  WHERE filename='backup.mbz'
-    AND filearea='course' AND 	contextid=$context->id AND filename!='.' AND  mimetype='application/vnd.moodle.backup';");
+        $sql = "SELECT * FROM {files} WHERE filename = 'backup.mbz' 
+        AND filearea = 'course' 
+        AND contextid = ? 
+        AND filename != '.' 
+        AND mimetype = 'application/vnd.moodle.backup'";
+        $params = [$context->id];
+        $file = $DB->get_record_sql($sql, $params);
+
         $fs = get_file_storage();
         $fileinfo = $file;
         $file_get = $fs->get_file($fileinfo->contextid, $fileinfo->component, $fileinfo->filearea,

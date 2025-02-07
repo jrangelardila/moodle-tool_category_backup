@@ -163,12 +163,16 @@ function tool_category_backup_get_file_backup($course)
     try {
         global $DB;
         //Obtener el controller
-        $context = $DB->get_record_sql("SELECT * FROM {context} WHERE contextlevel='50' AND
-        instanceid= '$course->id';");
-
+        $context=context_course::instance($course->id);
         $filename_v = "$course->shortname.mbz";
-        $file_verified = $DB->get_record_sql("SELECT * FROM  {files}  WHERE  filearea='course' AND 	contextid=$context->id AND filename!='.' AND mimetype='application/vnd.moodle.backup'
-                  AND  filename='$filename_v';");
+
+        $sql = "SELECT * FROM {files} WHERE filearea = 'course' 
+        AND contextid = ? 
+        AND filename != '.' 
+        AND mimetype = 'application/vnd.moodle.backup' 
+        AND filename = ?";
+        $params = [$context->id, $filename_v];
+        $file_verified = $DB->get_record_sql($sql, $params);
 
         $fs = get_file_storage();
 
