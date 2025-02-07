@@ -23,6 +23,6 @@
  */
 $plugin->component = 'tool_category_backup';
 $plugin->release = '1.0 jrangelardila';
-$plugin->version = 2025020600;
+$plugin->version = 2025020700;
 $plugin->requires = 2023042400;
 $plugin->maturity = MATURITY_STABLE;
