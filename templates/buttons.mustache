@@ -14,8 +14,23 @@
     You should have received a copy of the GNU General Public License
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
-<div class="d-grid gap-3">
-    <a class="btn btn-primary" href="{{generate_url}}">{{#str}}generate_task, tool_category_backup{{/str}}</a>
-    <a class="btn btn-primary" href="{{download_url}}">{{#str}}download_backups, tool_category_backup{{/str}}</a>
-    <a class="btn btn-primary" href="{{back_url}}">{{#str}}back, tool_category_backup{{/str}}</a>
+<div class="d-flex gap-3">
+    <form action="{{generate_url}}" method="post">
+        <input type="hidden" name="execute" value="true">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <button type="submit" class="btn btn-primary  m-2">{{#str}}generate_task, tool_category_backup{{/str}}</button>
+    </form>
+    <form action="{{download_url}}" method="post">
+        <input type="hidden" name="download" value="true">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <button type="submit" class="btn btn-primary  m-2">{{#str}}
+            download_backups, tool_category_backup{{/str}}</button>
+    </form>
+    <form action="{{back_url}}" method="post">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <button type="submit" class="btn btn-primary m-2">{{#str}}back, tool_category_backup{{/str}}</button>
+    </form>
 </div>
+
+
+

@@ -50,8 +50,11 @@ echo $OUTPUT->header();
 $form = new form_category_backup();
 $form->display();
 $courses = tool_category_backup_get_courses($form->get_data()->categorys);
-if (optional_param("execute", '', PARAM_BOOL) && data_submitted() && confirm_sesskey()) {
-    foreach ($SESSION->user_filtering['courses_backup'] as $course) {
+
+if (data_submitted() && confirm_sesskey() && optional_param("execute", '', PARAM_BOOL)) {
+    $cache = cache::make('tool_category_backup', 'session');
+
+    foreach ($courses as $course) {
         tool_category_backup_create_backup($course->id);
     }
     $templatecontext = [
@@ -59,8 +62,7 @@ if (optional_param("execute", '', PARAM_BOOL) && data_submitted() && confirm_ses
     ];
     echo $OUTPUT->render_from_template('tool_category_backup/success_task', $templatecontext);
 
-
-    $SESSION->user_filtering['courses_backup'] = null;
+    $cache->delete('courses_backup');
 } else if (optional_param("download", '', PARAM_BOOL) && data_submitted() && confirm_sesskey()) {
 
     echo "<div id='info_download'></div>";
@@ -77,9 +79,10 @@ if (optional_param("execute", '', PARAM_BOOL) && data_submitted() && confirm_ses
 } else {
     if ($courses) {
         $templatecontext = [
-            'generate_url' => new moodle_url('/admin/tool/category_backup/index.php', ['execute' => 'true']),
-            'download_url' => new moodle_url('/admin/tool/category_backup/index.php', ['download' => 'true']),
+            'generate_url' => new moodle_url('/admin/tool/category_backup/index.php'),
+            'download_url' => new moodle_url('/admin/tool/category_backup/index.php'),
             'back_url' => new moodle_url('/admin/tool/category_backup/index.php'),
+            'sesskey' => sesskey(),
         ];
         echo $OUTPUT->render_from_template('tool_category_backup/buttons', $templatecontext);
     }

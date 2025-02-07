@@ -24,6 +24,7 @@
 
 namespace tool_category_backup\form;
 
+use cache;
 use moodle_url;
 
 defined('MOODLE_INTERNAL') || die;
@@ -35,8 +36,6 @@ class form_category_backup extends \moodleform
      */
     protected function definition()
     {
-        global $SESSION;
-
         $mform = $this->_form;
 
         $categories = \core_course_category::make_categories_list();
@@ -48,8 +47,9 @@ class form_category_backup extends \moodleform
         $mform->addRule('categorys', get_string('required'), 'required', null, 'client');
 
 
-        if ($SESSION->user_filtering['categorys']) {
-            $mform->setDefault('categorys', $SESSION->user_filtering['categorys']);
+        $cache = cache::make('tool_category_backup', 'session');
+        if ($cache->get('courses_backup')) {
+            $mform->setDefault('categorys', $cache->get('courses_backup'));
         }
 
         $url = new moodle_url('/admin/settings.php', ['section' => 'backupgeneralsettings']);
@@ -59,7 +59,6 @@ class form_category_backup extends \moodleform
 
         $string = str_replace('{a}', $formatted_url, $string);
         $mform->addElement('html', $string);
-
 
 
         $this->add_action_buttons();

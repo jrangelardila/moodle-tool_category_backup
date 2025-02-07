@@ -56,16 +56,17 @@ function tool_category_backup_create_backup($courseid)
  */
 function tool_category_backup_get_courses($categories)
 {
-    global $DB, $SESSION;
+    global $DB;
+
+    $cache = cache::make('tool_category_backup', 'session');
 
     if ($categories == null) {
-        if ($SESSION->user_filtering['categorys'] != null) {
-            $categories = $SESSION->user_filtering['categorys'];
+        if ($cache->get('courses_backup') != null) {
+            $categories = $cache->get('courses_backup');
         } else {
             return;
         }
     }
-
     list($sqlin, $params) = $DB->get_in_or_equal($categories, SQL_PARAMS_NAMED);
 
     $sql = "SELECT id, shortname, category, fullname, summary, visible 
@@ -73,8 +74,8 @@ function tool_category_backup_get_courses($categories)
         WHERE category $sqlin 
         ORDER BY fullname";
 
-    $courses = $DB->get_records_sql($sql, $params);
 
+    $courses = $DB->get_records_sql($sql, $params);
     $table = new html_table();
     $table->id = 'table_data';
 
@@ -147,8 +148,7 @@ function tool_category_backup_get_courses($categories)
     echo html_writer::table($table);
     echo "</div>";
 
-    $SESSION->user_filtering['courses_backup'] = $courses_validate;
-
+    $cache->set('courses_backup', $categories);
     return $courses_validate;
 }
 
