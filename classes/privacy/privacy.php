@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+use core_privacy\local\metadata\null_provider;
+
+
 /**
  * Plugin version and other meta-data are defined here.
  *
@@ -21,7 +24,7 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class privacy
+class provider implements null_provider
 {
     /**
      * @inheritDoc
