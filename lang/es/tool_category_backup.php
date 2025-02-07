@@ -45,3 +45,4 @@ $string['js_m4'] = '</b> no cuenta con backup';
 $string['download_backups'] = 'Descargar copias de seguridad';
 $string['show'] = 'Visible';
 $string['hidden'] = 'Oculto';
+$string['privacy:metadata'] = 'El complemento de copia de seguridad de categoría no almacena ningún dato personal.';

@@ -45,3 +45,4 @@ $string['js_m4'] = '</b> does not have a backup';
 $string['download_backups'] = 'Download backups';
 $string['show'] = 'Show';
 $string['hidden'] = 'Hidden';
+$string['privacy:metadata'] = 'The Category Backup plugin does not store any personal data.';
