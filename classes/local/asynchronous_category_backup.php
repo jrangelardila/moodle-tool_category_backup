@@ -28,11 +28,13 @@ namespace tool_category_backup\local;
 use async_helper;
 use core\task\asynchronous_backup_task;
 use Exception;
+use tool_category_backup\backup\backup_controller;
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 require_once($CFG->dirroot . '/backup/moodle2/backup_plan_builder.class.php');
+require_once($CFG->dirroot . '/admin/tool/category_backup/classes/backup/backup_controller.class.php');
 
 class asynchronous_category_backup extends asynchronous_backup_task
 {
@@ -57,7 +59,7 @@ class asynchronous_category_backup extends asynchronous_backup_task
                 mtrace('Bad backup controller status, invalid controller, ending backup execution.');
                 return;
             }
-            $bc = \backup_controller::load_controller($backupid);
+            $bc = backup_controller::load_controller($backupid);
             $bc->set_progress(new \core\progress\db_updater($backuprecord->id, 'backup_controllers', 'progress'));
 
             // Do some preflight checks on the backup.

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91ca4d8a-8407-4f79-af8e-d443d442e489" name="Changes" comment="" />
+    <list default="true" id="91ca4d8a-8407-4f79-af8e-d443d442e489" name="Changes" comment="Update the version.php" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +30,9 @@
   }
 }</component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/usr/bin/php" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -75,10 +78,50 @@
       <workItem from="1737078603612" duration="79000" />
       <workItem from="1737078688869" duration="150000" />
       <workItem from="1738881953507" duration="6734000" />
+      <workItem from="1738969407082" duration="1301000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixed issue: Hardcoded parameters in SQL queries #13">
+      <option name="closed" value="true" />
+      <created>1738969594208</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738969594208</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fixed issue: Incorrect Privacy Provider implementation #12">
+      <option name="closed" value="true" />
+      <created>1738969960161</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738969960161</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixed issue: Incorrect Privacy Provider implementation #12">
+      <option name="closed" value="true" />
+      <created>1738970467166</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1738970467166</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update the version.php">
+      <option name="closed" value="true" />
+      <created>1738970620879</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738970620879</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed issue: Hardcoded parameters in SQL queries #13" />
+    <MESSAGE value="Fixed issue: Incorrect Privacy Provider implementation #12" />
+    <MESSAGE value="Update the version.php" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update the version.php" />
   </component>
 </project>

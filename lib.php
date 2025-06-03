@@ -21,8 +21,10 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 
+
+require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
+require_once($CFG->dirroot . '/admin/tool/category_backup/classes/backup/backup_controller.class.php');
 /**
  * Crear la tarea para las copias de seguridad
  *
@@ -34,7 +36,7 @@ function tool_category_backup_create_backup($courseid)
     global $USER, $DB;
 
     $user_doing_the_backup = $USER->id; // Set this to the id of your admin account
-    $bc = new backup_controller(backup::TYPE_1COURSE, $courseid, backup::FORMAT_MOODLE,
+    $bc = new \tool_category_backup\backup\backup_controller(backup::TYPE_1COURSE, $courseid, backup::FORMAT_MOODLE,
         backup::INTERACTIVE_NO, backup::MODE_ASYNC, $user_doing_the_backup);
 
     $asynctask = new  \tool_category_backup\local\asynchronous_category_backup();
@@ -163,7 +165,7 @@ function tool_category_backup_get_file_backup($course)
     try {
         global $DB;
         //Obtener el controller
-        $context=context_course::instance($course->id);
+        $context = context_course::instance($course->id);
         $filename_v = "$course->shortname.mbz";
 
         $sql = "SELECT * FROM {files} WHERE filearea = 'course' 

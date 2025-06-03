@@ -21,11 +21,25 @@
  * @copyright   2024 Jhon Rangel <jrangelardila@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace tool_category_backup\backup;
+
+use backup_controller;
+use backup_plan;
+use backup_plan_exception;
+
 defined('MOODLE_INTERNAL') || die;
 
-$ADMIN->add('courses', new admin_externalpage('tool_category_backup',
-    get_string('pluginname', 'tool_category_backup'),
-    "$CFG->wwwroot/admin/tool/category_backup/index.php"));
-
-
-$settings = null;
+class backup_plan_category_backup extends backup_plan
+{
+    public function __construct($controller)
+    {
+        parent::__construct($controller);
+        if (!$controller instanceof backup_controller) {
+            throw new backup_plan_exception('wrong_backup_controller_specified');
+        }
+        $backuptempdir = make_backup_temp_directory($controller->get_backupid());
+        $this->controller = $controller;
+        $this->basepath = $backuptempdir . '/' . $controller->get_backupid();
+        $this->excludingdactivities = false;
+    }
+}
