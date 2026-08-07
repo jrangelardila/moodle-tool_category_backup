@@ -28,7 +28,14 @@ require_once '../../../config.php';
 require 'lib.php';
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 
-$PAGE->set_context(context_system::instance());
+require_login();
+
+$sitecontext = context_system::instance();
+if (!has_capability('tool/backup_category:execute', $sitecontext)) {
+    throw new \moodle_exception('nopermissions', 'tool_category_backup');
+}
+
+$PAGE->set_context($sitecontext);
 $PAGE->set_url(new moodle_url('/admin/tool/category_backup/index.php'));
 $PAGE->set_title(get_string('pluginname', 'tool_category_backup'));
 $PAGE->set_heading(get_string('pluginname', 'tool_category_backup'));
@@ -36,14 +43,6 @@ $PAGE->set_pagelayout('standard');
 
 $PAGE->requires->jquery();
 $PAGE->navbar->add(get_string('pluginname', 'tool_category_backup'), new moodle_url('/admin/tool/category_backup/index.php'));
-
-
-require_login();
-
-$sitecontext = context_system::instance();
-if (!has_capability('tool/backup_category:execute', $sitecontext)) {
-    print_error('nopermissions', 'tool_category_backup');
-}
 
 echo $OUTPUT->header();
 
